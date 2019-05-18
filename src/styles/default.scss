@@ -1,0 +1,19 @@
+:root {
+	--primaryColor: #30CFD0;
+    --accentColor: #ED6E94;
+
+    --textColor: #4d4d4d;
+    --textLightColor: #898989;
+
+	--darkGrey: #4a4a4a;
+	--lightGrey: #bbb;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+input,
+textarea {
+	font: inherit;
+}
