@@ -11,7 +11,7 @@
 <script>
 import CreateDialog from '@/components/CreateDialog.vue'
 import ListCard from '@/components/ListCard.vue'
-import fbConfig from "@/firebaseConfig.js"
+import fbFunctions from '@/mixins/firebaseFunctions.js'
 
 export default {
   name: 'Overview',
@@ -28,18 +28,10 @@ export default {
   },
   methods: {
     createNewList() {
-      fbConfig.listCollection.add({
-        name: this.newListTitle,
-        todos: [],
-      })
-      .then(function(docRef) {
-        console.log("Document successfully written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-        console.error("Error creating document: ", error);
-      });
+      this.$_create(this.newListTitle);
     }
-  }
+  },
+  mixins: [fbFunctions],
 }
 </script>
 <style lang="scss" scoped>

@@ -1,9 +1,9 @@
-import listCollection from "@/firebase/index.js"
+import fbConfig from "@/firebaseConfig.js"
 
 export default {
     methods: {
         $_save(id, todos){
-            listCollection.doc(id).set({ todos }, { merge: true })
+            fbConfig.listCollection.doc(id).set({ todos }, { merge: true })
             .then(function() {
                 console.log("Document successfully written!");
             })
@@ -13,7 +13,7 @@ export default {
         },
 
         $_create(name){
-            listCollection.add({
+            fbConfig.listCollection.add({
                 name: name,
                 todos: [],
             })
@@ -26,7 +26,7 @@ export default {
         },
 
         $_deleteList(list){
-            listCollection.doc(list).delete().then(function() {
+            fbConfig.listCollection.doc(list).delete().then(function() {
                 console.log("Document successfully deleted!");
             }).catch(function(error) {
                 console.error("Error removing document: ", error);
