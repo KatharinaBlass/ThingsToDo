@@ -3,7 +3,7 @@
         <h3 id="cardTitle">{{title}}</h3>
         <router-link
           id="listLink"
-          :to="{ name: 'todoList', params: { listId: link }}">
+          :to="{ name: 'todoList', params: { listId: listId }}">
           open List
         </router-link>
     </div>
@@ -15,7 +15,7 @@ export default {
       type: String,
       required: true
     },
-    link: {
+    listId: {
       type: String,
       required: true
     }

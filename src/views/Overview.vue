@@ -6,7 +6,7 @@
         v-for="(list, index) in listDataCollection"
         :key="index"
         :title="list.title"
-        :link="list.link"/>
+        :listId="list.id"/>
     </div>
     <button type="button" id="toggleDialogButton" @click="dialogActive=!dialogActive">+</button>
     <CreateDialog
@@ -51,7 +51,6 @@ export default {
           return {
             id: doc.id,
             title: docData.name,
-            link: '/ToDos.html' + '?id=' + doc.id,
             size: docData.todos.length,
             checkedCount: checkedItemsCount
           }
