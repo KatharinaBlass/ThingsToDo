@@ -1,11 +1,11 @@
 <template>
     <div class="card">
-        <h3 id="cardTitle"></h3>
-        <a id="listLink" :href="link">
-            <button>
-                open List
-            </button>
-        </a>
+        <h3 id="cardTitle">{{title}}</h3>
+        <router-link
+          id="listLink"
+          :to="{ name: 'todoList', params: { listId: link }}">
+          open List
+        </router-link>
     </div>
 </template>
 <script>
@@ -23,5 +23,31 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  .card {
+    width: 150px;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 4px;
+    background: white;
+    box-shadow: #627479 2px 2px 4px;
+    text-align: center;
 
+    #cardTitle {
+        font-size: 1.7em;
+        font-weight: 200;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #listLink {
+        width: 100%;
+        background: #428ca2;
+        color: white;
+        padding: 8px;
+        border-radius: 2px;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+    }
+}
 </style>

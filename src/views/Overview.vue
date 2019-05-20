@@ -2,16 +2,26 @@
   <div class="wrapper">
     <h2 class="title">Things to do</h2>
     <div id="dashboard">
+      <ListCard
+        v-for="(list, index) in listDataCollection"
+        :key="index"
+        :title="list.title"
+        :link="list.link"/>
     </div>
     <button type="button" id="toggleDialogButton" @click="dialogActive=!dialogActive">+</button>
-    <CreateDialog :active.sync="dialogActive" v-model="newListTitle" @newToDoListConfigured="createNewList"/>
-    <h2 v-if="newListTitle">{{newListTitle}}</h2>
+    <CreateDialog
+      :active.sync="dialogActive"
+      v-model="newListTitle"
+      @newToDoListConfigured="createNewList"/>
   </div>
 </template>
 <script>
 import CreateDialog from '@/components/CreateDialog.vue'
 import ListCard from '@/components/ListCard.vue'
 import fbFunctions from '@/mixins/firebaseFunctions.js'
+import baseFunctions from '@/mixins/baseFunctions.js'
+const firebase = require('../firebaseConfig.js')
+
 
 export default {
   name: 'Overview',
@@ -23,15 +33,36 @@ export default {
     return {
       newListTitle: '',
       dialogActive: false,
-      lists: []
+      listDataCollection: []
     }
   },
   methods: {
     createNewList() {
       this.$_create(this.newListTitle);
-    }
+    },
+    listenToDbUpdates() {
+      firebase.listCollection.onSnapshot((snapshot) => {
+        console.log("onShapshot: ", snapshot);
+        this.listDataCollection = snapshot.docs.map((doc)=>{
+          const docData = doc.data();
+          let checkedItemsCount = docData.todos.filter((each)=>{
+            return each.checked == true
+          }).length;
+          return {
+            id: doc.id,
+            title: docData.name,
+            link: '/ToDos.html' + '?id=' + doc.id,
+            size: docData.todos.length,
+            checkedCount: checkedItemsCount
+          }
+        });
+      });
+    },
   },
-  mixins: [fbFunctions],
+  mixins: [fbFunctions, baseFunctions],
+  created() {
+    return this.listenToDbUpdates()
+  }
 }
 </script>
 <style lang="scss" scoped>

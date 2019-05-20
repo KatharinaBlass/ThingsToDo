@@ -1,4 +1,4 @@
-import fbConfig from "@/firebaseConfig.js"
+const fbConfig = require('../firebaseConfig.js')
 
 export default {
     methods: {

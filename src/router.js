@@ -12,8 +12,8 @@ export default new Router({
       component: Overview
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/todoList/:listId',
+      name: 'todoList',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.

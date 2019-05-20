@@ -21,7 +21,7 @@ var listCollection = database.collection("todo-lists");
 const settings = { timestampsInSnapshots: true }
 database.settings(settings)
 
-export default {
+export {
   firebase,
   database,
   listCollection
