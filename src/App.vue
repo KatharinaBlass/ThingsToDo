@@ -6,8 +6,9 @@
 
 <style lang="scss">
 @import "./styles/default.scss";
+@import url("https://fonts.googleapis.com/css?family=Quicksand");
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Quicksand', 'Avenir', Helvetica, Arial, sans-serif;;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

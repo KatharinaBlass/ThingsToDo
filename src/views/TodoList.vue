@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div>
         <div id="header">
             <router-link
                 id="menuLink"
@@ -11,14 +11,12 @@
                 <img src="@/assets/delete.svg" class="icon" id="delete"/>
             </button>
         </div>
-        <div class="todo_form">
+        <div class="content">
             <input v-model="newTask" v-on:keyup.enter="addToDo" type="text" id="todo_input" placeholder="What do you want to do?"/>
-            <button id="submit_btn" @click="addToDo"></button>
+            <ul id="toDo_list">
+                <TodoListEntry v-for="(task, index) in storage" :key="index" :text="task.text" :checked="task.checked"/>
+            </ul>
         </div>
-
-        <ul id="toDo_list">
-            <TodoListEntry v-for="(task, index) in storage" :key="index" :text="task.text" :checked="task.checked"/>
-        </ul>
     </div>
 </template>
 <script>
@@ -65,22 +63,21 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.wrapper {
+.content {
     width: 100%;
     border-radius: 2px;
-    background-image: linear-gradient(to bottom, #428ca2, #52c1cf, #c5ecf2);
 
     @media only screen and (min-width: 500px) {
         width: 70%;
-        max-width: 500px;
-        margin: 2em auto;
+        max-width: 700px;
+        margin: 1em auto;
         border-radius: 0;
     }
 }
 
 #header{
-    color: white;
-	padding: 16px 16px 8px;
+    color: #fffffff0;
+	padding: 16px 8px;
 	border-top-left-radius: 2px;
 	border-top-right-radius: 2px;
 	display: flex;
@@ -88,32 +85,25 @@ export default {
 	align-items: center;
 
     #headerTitle {
-		font-size: 1.7em;
-		font-weight: 200;
+		font-size: 2.5em;
+		font-weight: lighter;
 	}
 }
-.todo_form {
-	display: flex;
-	align-items: center;
 
-	#todo_input {
-		width: 100%;
-		padding: 8px;
-		margin: 0 8px;
-		border: none;
-		background: none;
-		border-bottom: 1px solid rgb(255, 255, 255);
-		color: white;
+#todo_input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    background: none;
+    font-size: 1.3em;
+    border-bottom: 1px solid #ffffffbb;
+    color: white;
 
-		&::placeholder {
-			color: rgb(255, 255, 255);
-		}
-	}
-
-	#submit_btn {
-		display: none;
-	}
+    &::placeholder {
+        color: #ffffffbb;
+    }
 }
+
 #toDo_list {
 	list-style-type: none;
 	margin: 0;
@@ -135,7 +125,7 @@ export default {
 
 .icon {
 	display: block;
-	height: 24px;
+	height: 2em;
 }
 </style>
 

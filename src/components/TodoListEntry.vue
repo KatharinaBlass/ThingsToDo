@@ -27,8 +27,7 @@ export default {
 <style lang="scss" scoped>
 .entry {
 	display: flex;
-	margin: 8px;
-	cursor: pointer;
+	margin: 1em 0;
 	position: relative;
 	transition: 0.2s;
 	background: white;
@@ -41,8 +40,11 @@ export default {
 
 	#entryLabel {
 		flex: 1;
-		padding: .5em;
-        text-align: left;
+		padding: .9em;
+		cursor: pointer;
+		text-align: left;
+		display: flex;
+		align-items: center;
 	}
 
     #entryCloseBtn {
@@ -68,10 +70,10 @@ export default {
 #checkbox {
 	display: inline-block;
 	position: relative;
-	width: 10px;
-    height: 10px;
-    border: 1px solid #2e8b94;
-    margin: 0 .3em;
+	width: 15px;
+    height: 15px;
+    border: 1px solid #025c7e;
+    margin: 0 .7em 0 0;
 }
 
 input[type="checkbox"] {
@@ -81,18 +83,18 @@ input[type="checkbox"] {
     clip: rect(1px, 1px, 1px, 1px);
 
 	&:checked + #checkbox {
-		background: #2e8b94;
+		background: #025c7e;
 		color: white;
 
 		& + #entryText{
-			color: #2e8b94;
+			color: #025c7e;
 			text-decoration: line-through;
 		}
 
 		&:before {
 			content: '✔';
 			position: absolute;
-			font-size: .4em;
+			font-size: .7em;
 			left: 50%;
 			top: 50%;
 			transform: translate(-50%, -50%);
