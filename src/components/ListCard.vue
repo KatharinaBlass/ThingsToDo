@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <h3 id="cardTitle">{{title}}</h3>
+        <h3 class="cardTitle overflowElipsis">{{title}}</h3>
         <router-link
           id="listLink"
           :to="{ name: 'todoList', params: { listId: listId }}">
@@ -32,9 +32,7 @@ export default {
     box-shadow: #627479 2px 2px 4px;
     text-align: center;
 
-    #cardTitle {
-        font-size: 1.7em;
-        font-weight: 200;
+    .overflowElipsis {
         overflow: hidden;
         text-overflow: ellipsis;
     }

@@ -7,14 +7,30 @@
                 <img src="@/assets/menu.svg" class="icon" id="menu"/>
             </router-link>
             <span class="title">{{this.listTitle}}</span>
-            <button class="menuOptions" id="deleteAll" @click="deleteMultipleItems">
+            <button
+                class="menuOptions"
+                id="deleteAll"
+                @click="deleteMultipleItems">
                 <img src="@/assets/delete.svg" class="icon" id="delete"/>
             </button>
         </div>
         <div class="content">
-            <input v-model="newTask" v-on:keyup.enter="addToDo" type="text" id="todo_input" placeholder="What do you want to do?"/>
+            <BaseInput
+                v-model="newTask"
+                placeholder="What do you want to do?"
+                name="newTaskInput"
+                v-on:keyup.enter="addToDo"
+                :standalone="true"
+            />
             <ul id="toDo_list">
-                <TodoListEntry v-for="(task, index) in storage" :key="index" :text="task.text" :checked="task.checked" @deleteListItem="deleteSingleListItem(index)" @check="checkListItem($event, index)"/>
+                <TodoListEntry
+                    v-for="(task, index) in storage"
+                    :key="index"
+                    :text="task.text"
+                    :checked="task.checked"
+                    @deleteListItem="deleteSingleListItem(index)"
+                    @check="checkListItem($event, index)"
+                />
             </ul>
         </div>
     </div>
@@ -22,6 +38,7 @@
 <script>
 import fbFunctions from '@/mixins/firebaseFunctions.js'
 import TodoListEntry from '@/components/TodoListEntry.vue'
+import BaseInput from '@/components/BaseInput.vue'
 const firebase = require('../firebaseConfig.js')
 
 export default {
@@ -36,7 +53,8 @@ export default {
     },
     mixins: [fbFunctions],
     components: {
-        TodoListEntry
+        TodoListEntry,
+        BaseInput
     },
     methods: {
         addToDo(){

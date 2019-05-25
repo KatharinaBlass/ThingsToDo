@@ -20,8 +20,8 @@ textarea {
 
 // variables
 :root {
-	--primaryColor: #30CFD0;
-    --accentColor: #ED6E94;
+	--primaryColor: #4ad1cd; // #30CFD0;
+    --accentColor: #025c7e; // #ED6E94;
 
     --textColor: #4d4d4d;
     --textLightColor: #898989;
@@ -38,4 +38,9 @@ textarea {
 	font-size: 2.2em;
 	font-weight: lighter;
 	color: #fffffff0;
+}
+.cardTitle {
+	font-size: 1.7rem;
+	font-weight: lighter;
+	text-align: center;
 }

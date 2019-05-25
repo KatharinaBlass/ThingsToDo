@@ -1,19 +1,26 @@
 <template>
-  <div class="wrapper">
-    <h2 class="title">Things to do</h2>
-    <div id="dashboard">
-      <ListCard
-        v-for="(list, index) in listDataCollection"
-        :key="index"
-        :title="list.title"
-        :listId="list.id"/>
-    </div>
-    <button type="button" id="toggleDialogButton" @click="dialogActive=!dialogActive">+</button>
-    <CreateDialog
-      :active.sync="dialogActive"
-      v-model="newListTitle"
-      @newToDoListConfigured="createNewList"/>
-  </div>
+	<div class="wrapper">
+		<h2 class="title">Things to do</h2>
+		<div id="dashboard">
+		<ListCard
+			v-for="(list, index) in listDataCollection"
+			:key="index"
+			:title="list.title"
+			:listId="list.id"
+		/>
+		</div>
+		<button
+			type="button"
+			id="toggleDialogButton"
+			@click="dialogActive=!dialogActive">
+			+
+		</button>
+		<CreateDialog
+			:active.sync="dialogActive"
+			v-model="newListTitle"
+			@newToDoListConfigured="createNewList"
+		/>
+	</div>
 </template>
 <script>
 import CreateDialog from '@/components/CreateDialog.vue'
@@ -24,44 +31,44 @@ const firebase = require('../firebaseConfig.js')
 
 
 export default {
-  name: 'Overview',
-  components: {
-    CreateDialog,
-    ListCard
-  },
-  data () {
-    return {
-      newListTitle: '',
-      dialogActive: false,
-      listDataCollection: []
-    }
-  },
-  methods: {
-    createNewList() {
-      this.$_create(this.newListTitle);
-    },
-    listenToDbUpdates() {
-      firebase.listCollection.onSnapshot((snapshot) => {
-        console.log("onShapshot: ", snapshot);
-        this.listDataCollection = snapshot.docs.map((doc)=>{
-          const docData = doc.data();
-          let checkedItemsCount = docData.todos.filter((each)=>{
-            return each.checked == true
-          }).length;
-          return {
-            id: doc.id,
-            title: docData.name,
-            size: docData.todos.length,
-            checkedCount: checkedItemsCount
-          }
-        });
-      });
-    },
-  },
-  mixins: [fbFunctions, baseFunctions],
-  created() {
-    return this.listenToDbUpdates()
-  }
+	name: 'Overview',
+	components: {
+		CreateDialog,
+		ListCard
+	},
+	data () {
+		return {
+			newListTitle: '',
+			dialogActive: false,
+			listDataCollection: []
+		}
+	},
+	methods: {
+		createNewList() {
+			this.$_create(this.newListTitle);
+		},
+		listenToDbUpdates() {
+			firebase.listCollection.onSnapshot((snapshot) => {
+				console.log("onShapshot: ", snapshot);
+				this.listDataCollection = snapshot.docs.map((doc)=>{
+					const docData = doc.data();
+					let checkedItemsCount = docData.todos.filter((each)=>{
+						return each.checked == true
+					}).length;
+					return {
+						id: doc.id,
+						title: docData.name,
+						size: docData.todos.length,
+						checkedCount: checkedItemsCount
+					}
+				});
+			});
+		},
+	},
+	mixins: [fbFunctions, baseFunctions],
+	created() {
+		return this.listenToDbUpdates()
+	}
 }
 </script>
 <style lang="scss" scoped>

@@ -1,0 +1,42 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 16px;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#025c7e), to(#4ad1cd));
+  background-image: linear-gradient(to bottom, #025c7e, #4ad1cd);
+}
+
+input,
+textarea {
+  font: inherit;
+}
+
+:root {
+  --primaryColor: #4ad1cd;
+  --accentColor: #025c7e;
+  --textColor: #4d4d4d;
+  --textLightColor: #898989;
+  --darkGrey: #4a4a4a;
+  --lightGrey: #bbb;
+  --defaultBoxShadow: 0 3px 6px rgba(90, 90, 90, 0.16), 0 3px 6px rgba(95, 95, 95, 0.23);
+}
+
+.title {
+  font-size: 2.2em;
+  font-weight: lighter;
+  color: #fffffff0;
+}
+
+.cardTitle {
+  font-size: 1.7rem;
+  font-weight: lighter;
+  text-align: center;
+}
+/*# sourceMappingURL=default.css.map */

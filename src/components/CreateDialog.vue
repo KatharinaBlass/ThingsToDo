@@ -5,10 +5,13 @@
                 <img src="@/assets/close-light-gray.svg" class="icon"/>
             </button>
             <div class="contentWrapper">
-                <h3 id="title">Neue ToDo List</h3>
-                <label>Titel
-                    <input id="titleInput" type="text" placeholder="Gib mir einen Namen" v-model="newTitle"/>
-                </label>
+                <h3 class="cardTitle">Neue ToDo List</h3>
+                <BaseInput
+                    v-model="newTitle"
+                    name="newTitleInput"
+                    placeholder="Gib mir einen Namen"
+                    label="Titel"
+                />
             </div>
             <button class="submitBtn" type="button" @click="handleSubmit">Erstellen</button>
         </div>
@@ -16,7 +19,12 @@
     </div>
 </template>
 <script>
+import BaseInput from '@/components/BaseInput.vue'
+
 export default {
+  components: {
+      BaseInput,
+  },
   props: {
     value: {
       type: String
@@ -74,11 +82,9 @@ export default {
         padding: 16px;
         text-align: left;
 
-        #title {
-            margin: .5em 0 .75em;
-            font-weight: 400;
+        .cardTitle {
+            margin: .5em 0;
             text-align: center;
-            font-size: 1.5em;
             color: var(--textColor);
         }
         #titleInput {
