@@ -6,15 +6,15 @@
                 :to="{ name: 'home'}">
                 <img src="@/assets/menu.svg" class="icon" id="menu"/>
             </router-link>
-            <span id="headerTitle">{{this.listTitle}}</span>
-            <button class="menuOptions" id="deleteAll">
+            <span class="title">{{this.listTitle}}</span>
+            <button class="menuOptions" id="deleteAll" @click="deleteMultipleItems">
                 <img src="@/assets/delete.svg" class="icon" id="delete"/>
             </button>
         </div>
         <div class="content">
             <input v-model="newTask" v-on:keyup.enter="addToDo" type="text" id="todo_input" placeholder="What do you want to do?"/>
             <ul id="toDo_list">
-                <TodoListEntry v-for="(task, index) in storage" :key="index" :text="task.text" :checked="task.checked"/>
+                <TodoListEntry v-for="(task, index) in storage" :key="index" :text="task.text" :checked="task.checked" @deleteListItem="deleteSingleListItem(index)" @check="checkListItem($event, index)"/>
             </ul>
         </div>
     </div>
@@ -31,6 +31,7 @@ export default {
             newTask: '',
             storage: [],
             listTitle: '',
+            listId: this.$route.params.listId,
         }
     },
     mixins: [fbFunctions],
@@ -45,17 +46,37 @@ export default {
             else {
                 newEntry = {'text': this.newTask, 'checked': false};
                 this.storage.push(newEntry);
-                this.$_save(this.$route.params.listId, this.storage);
+                this.$_save(this.listId, this.storage);
             }
             this.newTask = '';
         },
         listenToDbUpdates() {
-            firebase.listCollection.doc(this.$route.params.listId).onSnapshot((doc) => {
+            firebase.listCollection.doc(this.listId).onSnapshot((doc) => {
                 console.log("onShapshot: ", doc.data());
                 this.storage = doc.data().todos;
                 this.listTitle = doc.data().name;
             });
         },
+        deleteSingleListItem(index) {
+            this.storage.splice(index, 1);
+            this.$_save(this.listId, this.storage);
+        },
+        deleteMultipleItems() {
+            let checkedItems = this.storage.filter((item)=>{
+                return item.checked === true
+            });
+            if (checkedItems.length != 0) {
+                this.storage = this.storage.filter((item)=>{
+                    return !checkedItems.includes(item)
+                });
+            }
+            else this.storage = [];
+            this.$_save(this.listId, this.storage);
+        },
+        checkListItem(event, index) {
+            this.storage[index].checked = event.target.checked;
+            this.$_save(this.listId, this.storage);
+        }
     },
     created: function() {
         this.listenToDbUpdates();
@@ -76,18 +97,12 @@ export default {
 }
 
 #header{
-    color: #fffffff0;
 	padding: 16px 8px;
 	border-top-left-radius: 2px;
 	border-top-right-radius: 2px;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-
-    #headerTitle {
-		font-size: 2.5em;
-		font-weight: lighter;
-	}
+    align-items: center;
 }
 
 #todo_input {
@@ -95,7 +110,7 @@ export default {
     padding: 8px;
     border: none;
     background: none;
-    font-size: 1.3em;
+    font-size: 1.2em;
     border-bottom: 1px solid #ffffffbb;
     color: white;
 
@@ -107,7 +122,7 @@ export default {
 #toDo_list {
 	list-style-type: none;
 	margin: 0;
-	padding: 0;
+	padding: 8px;
 	overflow-y: auto;
 	max-height: 80vh;
 }

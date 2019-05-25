@@ -71,19 +71,13 @@ export default {
     text-align: center;
 }
 
-.title {
-    text-align: center;
-    font-weight: 300;
-    font-size: 1.7em;
-}
-
 .card {
     width: 150px;
     padding: 8px;
     margin: 8px;
     border-radius: 4px;
     background: white;
-    box-shadow: #627479 2px 2px 4px;
+    box-shadow: var(--defaultBoxShadow);
     text-align: center;
 
     #cardTitle {
@@ -122,7 +116,7 @@ export default {
     background: white;
     border: none;
     border-radius: 4px;
-    box-shadow: #627479 2px 2px 4px;
+    box-shadow: var(--defaultBoxShadow);
     width: 150px;
 }
 </style>

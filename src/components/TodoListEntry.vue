@@ -1,11 +1,11 @@
 <template>
     <li class="entry">
         <label id="entryLabel">
-            <input type="checkbox" :checked="checked"/>
+            <input type="checkbox" :checked="checked" @change="$emit('check', $event)"/>
             <span id="checkbox"></span>
             <span id="entryText">{{text}}</span>
         </label>
-        <button id="entryCloseBtn">
+        <button id="entryCloseBtn" @click="$emit('deleteListItem', $event)">
             <img src="@/assets/close.svg" class="icon"/>
         </button>
     </li>
@@ -21,7 +21,7 @@ export default {
             type: Boolean,
             default: false
         }
-    }
+	}
 }
 </script>
 <style lang="scss" scoped>
@@ -32,6 +32,7 @@ export default {
 	transition: 0.2s;
 	background: white;
 	align-items: center;
+	box-shadow: var(--defaultBoxShadow);
 
 	&:last-child {
 		border-bottom-left-radius: 2px;
