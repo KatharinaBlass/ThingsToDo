@@ -4,14 +4,13 @@
             <router-link
                 id="menuLink"
                 :to="{ name: 'home'}">
-                <img src="@/assets/menu.svg" class="icon" id="menu"/>
+                <img src="@/assets/menu.svg" class="icon"/>
             </router-link>
             <span class="title">{{this.listTitle}}</span>
             <button
-                class="menuOptions"
                 id="deleteAll"
                 @click="deleteMultipleItems">
-                <img src="@/assets/delete.svg" class="icon" id="delete"/>
+                <img src="@/assets/delete.svg" class="icon"/>
             </button>
         </div>
         <div class="content">
@@ -123,20 +122,6 @@ export default {
     align-items: center;
 }
 
-#todo_input {
-    width: 100%;
-    padding: 8px;
-    border: none;
-    background: none;
-    font-size: 1.2em;
-    border-bottom: 1px solid #ffffffbb;
-    color: white;
-
-    &::placeholder {
-        color: #ffffffbb;
-    }
-}
-
 #toDo_list {
 	list-style-type: none;
 	margin: 0;
@@ -150,7 +135,7 @@ export default {
 	display: flex;
 }
 
-.menuOptions {
+#deleteAll {
 	background: none;
 	border: none;
 	cursor: pointer;

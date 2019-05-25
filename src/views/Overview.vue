@@ -78,39 +78,6 @@ export default {
     text-align: center;
 }
 
-.card {
-    width: 150px;
-    padding: 8px;
-    margin: 8px;
-    border-radius: 4px;
-    background: white;
-    box-shadow: var(--defaultBoxShadow);
-    text-align: center;
-
-    #cardTitle {
-        font-size: 1.7em;
-        font-weight: 200;
-    }
-
-    #cardImage {
-        display: none;
-    }
-
-    #listLink {
-        width: 100%;
-
-        button {
-            width: 100%;
-            border: none;
-            background: #428ca2;
-            color: white;
-            padding: 8px;
-            border-radius: 2px;
-            cursor: pointer;
-        }
-    }
-}
-
 #dashboard {
     display: flex;
     justify-content: center;
@@ -124,6 +91,7 @@ export default {
     border: none;
     border-radius: 4px;
     box-shadow: var(--defaultBoxShadow);
-    width: 150px;
+	width: 150px;
+	cursor: pointer;
 }
 </style>

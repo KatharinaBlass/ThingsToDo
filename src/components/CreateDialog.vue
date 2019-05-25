@@ -57,7 +57,7 @@ export default {
     padding: 0;
     margin: 8px;
     border-radius: 2px;
-    box-shadow: #627479 2px 2px 4px;
+    box-shadow: var(--defaultBoxShadow);
     z-index: 10;
     position: absolute;
     top: 50%;
@@ -87,23 +87,6 @@ export default {
             text-align: center;
             color: var(--textColor);
         }
-        #titleInput {
-            display: block;
-            border: none;
-            border-bottom: 1px solid grey;
-            width: 100%;
-            padding: 3px 0;
-
-            &:focus {
-                outline: none;
-                border-color: var(--primaryColor);
-            }
-        }
-        label {
-            text-transform: uppercase;
-            font-size: .8em;
-            color: var(--textLightColor);
-        }
     }
 
     .submitBtn {
@@ -118,7 +101,7 @@ export default {
     }
 }
 .overlay {
-    background: #3c3b3b99;
+    background: #00000094;
     position: absolute;
     top: 0;
     left: 0;

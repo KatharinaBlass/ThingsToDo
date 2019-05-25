@@ -16,6 +16,7 @@
             :name="name"
             :placeholder="placeholder"
             :value="inputValue"
+            autocomplete="off"
         />
     </label>
 </template>
