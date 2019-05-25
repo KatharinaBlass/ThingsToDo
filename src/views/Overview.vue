@@ -6,6 +6,8 @@
 			v-for="(list, index) in listDataCollection"
 			:key="index"
 			:title="list.title"
+			:taskCount="list.size"
+			:solvedTaskCount="list.checkedCount"
 			:listId="list.id"
 		/>
 		</div>
@@ -91,7 +93,10 @@ export default {
     border: none;
     border-radius: 4px;
     box-shadow: var(--defaultBoxShadow);
-	width: 150px;
+	width: 170px;
 	cursor: pointer;
+	font-size: 1.2rem;
+    font-weight: lighter;
+    color: var(--TextColor);
 }
 </style>
