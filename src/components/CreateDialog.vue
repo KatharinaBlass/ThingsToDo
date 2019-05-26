@@ -11,15 +11,17 @@
                     name="newTitleInput"
                     placeholder="Gib mir einen Namen"
                     label="Titel"
+                    :valid.sync="valid.title"
                 />
                 <TabSelect
-                    :options="tabs"
+                    :options="kategories"
                     v-model="newList.kategory"
                     name="newListKategory"
                     label="Kategorie"
+                    :valid.sync="valid.kategory"
                 />
             </div>
-            <button class="submitBtn" type="button" @click="handleSubmit">Erstellen</button>
+            <button class="submitBtn" type="button" @click="validateBeforeSubmit">Erstellen</button>
         </div>
         <div class="overlay"></div>
     </div>
@@ -32,6 +34,14 @@ export default {
   components: {
       BaseInput,
       TabSelect,
+  },
+  data() {
+      return {
+          valid: {
+              kategory: true,
+              title: true,
+          },
+      }
   },
   props: {
     value: {
@@ -55,11 +65,23 @@ export default {
         this.$emit("input", newList);
       },
     },
+    kategories() {
+        delete this.tabs.all;
+        return this.tabs
+    },
   },
   methods: {
-      handleSubmit() {
-          this.$emit('update:active');
-          this.$emit('newToDoListConfigured');
+      validateBeforeSubmit() {
+          if(this.newList.title === '') {
+              this.valid.title = false;
+          }
+          if(this.newList.kategory === '') {
+              this.valid.kategory = false;
+          }
+          if(this.valid.title && this.valid.kategory) {
+                this.$emit('update:active');
+                this.$emit('newToDoListConfigured');
+          }
       }
   }
 }

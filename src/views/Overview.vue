@@ -5,6 +5,7 @@
 			:options="tabs"
 			v-model="activeTab"
 			name="tab"
+			:valid="true"
 		/>
 		<div id="dashboard">
 		<ListCard
@@ -66,6 +67,8 @@ export default {
 	methods: {
 		createNewList() {
 			this.$_create(this.newList);
+			this.newList.title = '';
+			this.newList.kategory = '';
 		},
 		listenToDbUpdates() {
 			firebase.listCollection.onSnapshot((snapshot) => {

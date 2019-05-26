@@ -2,14 +2,18 @@
     <label
         :v-if="label"
         :for="name"
-        :class="{ standalone: standalone }"
+        :class="{ standalone: standalone, invalid: !valid }"
     >
         {{ label }}
         <input
             v-model="inputValue"
             v-on="{
                 ...$listeners,
-                input: event => {}
+                input: event => {
+                    if (event.target.value != '') {
+                        $emit('update:valid', true)
+                    }
+                }
             }"
             v-bind="$attrs"
             :type="type"
@@ -46,6 +50,10 @@ export default {
         standalone: {
             type: Boolean,
             default: false,
+        },
+        valid: {
+            type: Boolean,
+            required: true,
         }
     },
     computed: {
@@ -61,38 +69,48 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-    label {
-        text-transform: uppercase;
-        font-size: .8rem;
-        color: var(--textColor);
+label {
+    text-transform: uppercase;
+    font-size: .8rem;
+    color: var(--textColor);
 
-        input {
-            display: block;
-            width: 100%;
-            padding: 4px 0;
-            border: none;
-            background: none;
-            font-size: 1rem;
-            border-bottom: 1px solid var(--textColor);
+    input {
+        display: block;
+        width: 100%;
+        padding: 4px 0;
+        border: none;
+        background: none;
+        font-size: 1rem;
+        border-bottom: 1px solid var(--textColor);
+        color: inherit;
+
+        &:focus {
+            outline: none;
+            border-color: var(--primaryColor);
+        }
+
+        &::placeholder {
             color: inherit;
-
-            &:focus {
-                outline: none;
-                border-color: var(--primaryColor);
-            }
-
-            &::placeholder {
-                color: inherit;
-            }
         }
     }
-     .standalone {
-        color: #ffffffbb;
+}
 
-        input {
-            padding: 8px;
-            border-color: #ffffffbb;
-            font-size: 1.2rem;
-        }
+label[class='invalid'] {
+    color: red !important;
+
+    input {
+        color: initial;
+        border-color: red !important
     }
+}
+
+.standalone {
+    color: #ffffffbb;
+
+    input {
+        padding: 8px;
+        border-color: #ffffffbb;
+        font-size: 1.2rem;
+    }
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="margin">
-        <label v-if="label" :for="name">
+        <label v-if="label" :for="name" :class="{ invalid: !valid }">
             {{ label }}
         </label>
         <div class="wrapper">
@@ -10,7 +10,7 @@
                 type="button"
                 :name="name"
                 :class="{ active: activeOption === key }"
-                @click="activeOption = key"
+                @click="()=>{ activeOption = key; $emit('update:valid', true)}"
             >
                 {{ value }}
             </button>
@@ -34,6 +34,10 @@ export default {
         },
         name: {
             type: String,
+            required: true,
+        },
+        valid: {
+            type: Boolean,
             required: true,
         }
     },
@@ -90,6 +94,9 @@ export default {
             border-radius: 4px;
         }
     }
+}
+.invalid {
+    color: red !important;
 }
 
 </style>
