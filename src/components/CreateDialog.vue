@@ -7,10 +7,16 @@
             <div class="contentWrapper">
                 <h3 class="cardTitle">Neue ToDo List</h3>
                 <BaseInput
-                    v-model="newTitle"
+                    v-model="newList.title"
                     name="newTitleInput"
                     placeholder="Gib mir einen Namen"
                     label="Titel"
+                />
+                <TabSelect
+                    :options="tabs"
+                    v-model="newList.kategory"
+                    name="newListKategory"
+                    label="Kategorie"
                 />
             </div>
             <button class="submitBtn" type="button" @click="handleSubmit">Erstellen</button>
@@ -20,26 +26,33 @@
 </template>
 <script>
 import BaseInput from '@/components/BaseInput.vue'
+import TabSelect from '@/components/TabSelect.vue'
 
 export default {
   components: {
       BaseInput,
+      TabSelect,
   },
   props: {
     value: {
-      type: String
+        type: Object,
+        required: true,
     },
     active: {
         type: Boolean
-    }
+    },
+    tabs: {
+        type: Object,
+        required: true,
+    },
   },
   computed: {
-    newTitle: {
+    newList: {
       get() {
         return this.value;
       },
-      set(newTitle) {
-        this.$emit("input", newTitle);
+      set(newList) {
+        this.$emit("input", newList);
       },
     },
   },

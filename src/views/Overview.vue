@@ -1,9 +1,14 @@
 <template>
 	<div class="wrapper">
 		<h2 class="title">Things to do</h2>
+		<TabSelect
+			:options="tabs"
+			v-model="activeTab"
+			name="tab"
+		/>
 		<div id="dashboard">
 		<ListCard
-			v-for="(list, index) in listDataCollection"
+			v-for="(list, index) in filteredListDataCollection"
 			:key="index"
 			:title="list.title"
 			:taskCount="list.size"
@@ -19,7 +24,8 @@
 		</button>
 		<CreateDialog
 			:active.sync="dialogActive"
-			v-model="newListTitle"
+			v-model="newList"
+			:tabs="tabs"
 			@newToDoListConfigured="createNewList"
 		/>
 	</div>
@@ -27,6 +33,7 @@
 <script>
 import CreateDialog from '@/components/CreateDialog.vue'
 import ListCard from '@/components/ListCard.vue'
+import TabSelect from '@/components/TabSelect.vue'
 import fbFunctions from '@/mixins/firebaseFunctions.js'
 import baseFunctions from '@/mixins/baseFunctions.js'
 const firebase = require('../firebaseConfig.js')
@@ -36,18 +43,29 @@ export default {
 	name: 'Overview',
 	components: {
 		CreateDialog,
-		ListCard
+		ListCard,
+		TabSelect,
 	},
 	data () {
 		return {
-			newListTitle: '',
+			newList: {
+				title: '',
+				kategory: '',
+			},
 			dialogActive: false,
-			listDataCollection: []
+			listDataCollection: [],
+			tabs: {
+				'all': 'All',
+				'privat': 'Privat',
+				'uni': 'Uni',
+				'work': 'Arbeit',
+			},
+			activeTab: 'all',
 		}
 	},
 	methods: {
 		createNewList() {
-			this.$_create(this.newListTitle);
+			this.$_create(this.newList);
 		},
 		listenToDbUpdates() {
 			firebase.listCollection.onSnapshot((snapshot) => {
@@ -60,12 +78,23 @@ export default {
 					return {
 						id: doc.id,
 						title: docData.name,
+						kategory: docData.kategory,
 						size: docData.todos.length,
 						checkedCount: checkedItemsCount
 					}
 				});
 			});
 		},
+	},
+	computed: {
+		filteredListDataCollection() {
+			if (this.activeTab === 'all') {
+				return this.listDataCollection
+			} else
+			return this.listDataCollection.filter((list)=>{
+				return list.kategory === this.activeTab
+			})
+		}
 	},
 	mixins: [fbFunctions, baseFunctions],
 	created() {
@@ -77,7 +106,7 @@ export default {
 .wrapper {
     width: 90%;
     margin: auto;
-    text-align: center;
+	text-align: center;
 }
 
 #dashboard {

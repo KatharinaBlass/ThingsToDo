@@ -12,9 +12,10 @@ export default {
             });
         },
 
-        $_create(name){
+        $_create(listConfig){
             fbConfig.listCollection.add({
-                name: name,
+                name: listConfig.title,
+                kategory: listConfig.kategory,
                 todos: [],
             })
             .then(function(docRef) {
