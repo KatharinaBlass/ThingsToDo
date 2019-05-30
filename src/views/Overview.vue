@@ -1,5 +1,6 @@
 <template>
 	<div class="wrapper">
+		<button type="button" @click="logout">Logout</button>
 		<h2 class="title">Things to do</h2>
 		<TabSelect
 			:options="tabs"
@@ -88,6 +89,13 @@ export default {
 				});
 			});
 		},
+		logout() {
+			firebase.firebase.auth()
+			.signOut()
+			.then(() => {
+				this.$router.replace('sign-in');
+			});
+		}
 	},
 	computed: {
 		filteredListDataCollection() {
