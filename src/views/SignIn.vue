@@ -1,19 +1,18 @@
 <template>
-    <div class="login-wrapper">
-        <span class="login-head-icon">
-            <img src="@/assets/user.png" class="icon"/>
-        </span>
-        <h2 class="login-title">Sign in to Your Account</h2>
-        <form v-on:submit.prevent="login">
+    <userManagementDialog
+        dialogTitle="Sign in to Your Account"
+        buttonTitle="Anmelden"
+        v-on:formSubmitted="login"
+    >
+        <template slot="inputs">
             <label>
                 <input type="email" v-model="email" name="email" placeholder="Benutzername" autocomplete="off"/>
             </label>
             <label>
                 <input type="password" v-model="pw" name="password" placeholder="Passwort" autocomplete="off"/>
             </label>
-            <button class="submit-btn" type="submit">Anmelden</button>
-        </form>
-        <div class="additional">
+        </template>
+        <div class="additional" slot="links">
             <div class="sign-up">
                 Registriere dich
                 <router-link to="sign-up" class="sign-up-link">
@@ -24,10 +23,11 @@
                 Passwort vergessen?
             </div>
         </div>
-    </div>
+    </userManagementDialog>
 </template>
 <script>
 const firebaseConfig = require('../firebaseConfig.js')
+import userManagementDialog from '@/components/userManagementDialog.vue'
 
 export default {
     data() {
@@ -36,8 +36,12 @@ export default {
             pw: '',
         }
     },
+    components: {
+        userManagementDialog
+    },
     methods: {
         login() {
+            console.log(this.email, this.pw);
             firebaseConfig.firebase.auth().signInWithEmailAndPassword(this.email, this.pw)
             .then(
                 user => {
@@ -52,39 +56,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.login-wrapper {
-    max-width: 500px;
-    width: 45%;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 1px solid #F1EFEF;
-    padding: 2rem;
-    box-shadow:  0 3px 6px rgba(0, 0, 0, 0.16);
-}
-.login-title{
-    margin-top: 2rem;
-    color: white;
-}
-.submit-btn {
-    width: 100%;
-    margin: 0;
-    padding: .75rem;
-    border: 0;
-    background: var(--accentColor);
-    color: white;
-    border-radius: 2px;
-    text-transform: uppercase;
-    margin-bottom: .5rem;
-}
-input {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
-    border: none;
-    margin: 1.5rem 0;
-}
 .additional {
     display: flex;
     flex-direction: row;
@@ -102,22 +73,6 @@ input {
             font-size: inherit;
             font-weight: bold;
         }
-    }
-}
-.login-head-icon {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 24px;
-    border-radius: 50%;
-    border: 1px solid white;
-    width: calc(45px + 48px);
-    height: calc(45px + 48px);
-    background: #36b0b7;
-
-    .icon {
-        height: 45px;
     }
 }
 </style>
