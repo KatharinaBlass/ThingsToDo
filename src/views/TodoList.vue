@@ -4,13 +4,13 @@
             <router-link
                 id="menuLink"
                 :to="{ name: 'home'}">
-                <img src="@/assets/menu.svg" class="icon"/>
+                <img src="@/assets/arrow_back.svg" class="icon"/>
             </router-link>
             <span class="title">{{this.listTitle}}</span>
             <button
                 id="deleteAll"
                 @click="deleteMultipleItems">
-                <img src="@/assets/delete.svg" class="icon"/>
+                <img src="@/assets/clear_all.svg" class="icon"/>
             </button>
         </div>
         <div class="content">
@@ -71,7 +71,6 @@ export default {
         },
         listenToDbUpdates() {
             firebase.database.collection(this.user.id).doc(this.listId).onSnapshot((doc) => {
-                console.log("onShapshot: ", doc.data());
                 this.storage = doc.data().todos;
                 this.listTitle = doc.data().name;
             });

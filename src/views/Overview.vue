@@ -16,6 +16,7 @@
 			:taskCount="list.size"
 			:solvedTaskCount="list.checkedCount"
 			:listId="list.id"
+			@deleteListCard="$_deleteList(user.id, list.id)"
 		/>
 		</div>
 		<button
@@ -74,20 +75,21 @@ export default {
 		},
 		listenToDbUpdates() {
 			firebase.database.collection(this.user.id).onSnapshot((snapshot) => {
-				console.log("onShapshot: ", snapshot);
-				this.listDataCollection = snapshot.docs.map((doc)=>{
-					const docData = doc.data();
-					let checkedItemsCount = docData.todos.filter((each)=>{
-						return each.checked == true
-					}).length;
-					return {
-						id: doc.id,
-						title: docData.name,
-						kategory: docData.kategory,
-						size: docData.todos.length,
-						checkedCount: checkedItemsCount
-					}
-				});
+				if(snapshot) {
+					this.listDataCollection = snapshot.docs.map((doc)=>{
+						const docData = doc.data();
+						let checkedItemsCount = docData.todos.filter((each)=>{
+							return each.checked == true
+						}).length;
+						return {
+							id: doc.id,
+							title: docData.name,
+							kategory: docData.kategory,
+							size: docData.todos.length,
+							checkedCount: checkedItemsCount
+						}
+					});
+				}
 			});
 		},
 		logout() {
