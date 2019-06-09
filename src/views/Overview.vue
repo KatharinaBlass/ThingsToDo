@@ -63,16 +63,17 @@ export default {
 				'work': 'Arbeit',
 			},
 			activeTab: 'all',
+			user: JSON.parse(localStorage.getItem('user')),
 		}
 	},
 	methods: {
 		createNewList() {
-			this.$_create(this.newList);
+			this.$_create(this.user.id, this.newList);
 			this.newList.title = '';
 			this.newList.kategory = '';
 		},
 		listenToDbUpdates() {
-			firebase.listCollection.onSnapshot((snapshot) => {
+			firebase.database.collection(this.user.id).onSnapshot((snapshot) => {
 				console.log("onShapshot: ", snapshot);
 				this.listDataCollection = snapshot.docs.map((doc)=>{
 					const docData = doc.data();

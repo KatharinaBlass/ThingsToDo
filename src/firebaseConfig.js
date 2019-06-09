@@ -17,7 +17,6 @@ firebase.initializeApp(config)
 
 // firebase utils
 const database = firebase.firestore()
-var listCollection = database.collection("todo-lists");
 
 // date issue fix according to firebase
 const settings = { timestampsInSnapshots: true }
@@ -25,6 +24,5 @@ database.settings(settings)
 
 export {
   firebase,
-  database,
-  listCollection
+  database
 }

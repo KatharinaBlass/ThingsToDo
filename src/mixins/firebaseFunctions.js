@@ -1,9 +1,9 @@
-const fbConfig = require('../firebaseConfig.js')
+const fbConfig = require('../firebaseConfig.js');
 
 export default {
     methods: {
-        $_save(id, todos){
-            fbConfig.listCollection.doc(id).set({ todos }, { merge: true })
+        $_save(userId, listId, todos){
+            fbConfig.database.collection(userId).doc(listId).set({ todos }, { merge: true })
             .then(function() {
                 console.log("Document successfully written!");
             })
@@ -12,8 +12,8 @@ export default {
             });
         },
 
-        $_create(listConfig){
-            fbConfig.listCollection.add({
+        $_create(userId, listConfig){
+            fbConfig.database.collection(userId).add({
                 name: listConfig.title,
                 kategory: listConfig.kategory,
                 todos: [],
@@ -26,8 +26,8 @@ export default {
             });
         },
 
-        $_deleteList(list){
-            fbConfig.listCollection.doc(list).delete().then(function() {
+        $_deleteList(userId, listId){
+            fbConfig.database.collection(userId).doc(listId).delete().then(function() {
                 console.log("Document successfully deleted!");
             }).catch(function(error) {
                 console.error("Error removing document: ", error);

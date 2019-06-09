@@ -34,6 +34,7 @@ export default {
             .then(
                 user => {
                     this.$router.replace('/');
+                    localStorage.setItem('user', JSON.stringify({ id: user.user.uid, email: user.user.email, name: user.user.displayName }));
                 },
                 error => {
                     alert(error.message);

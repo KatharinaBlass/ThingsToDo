@@ -20,6 +20,7 @@
                 name="newTaskInput"
                 v-on:keyup.enter="addToDo"
                 :standalone="true"
+                :valid="true"
             />
             <ul id="toDo_list">
                 <TodoListEntry
@@ -48,6 +49,7 @@ export default {
             storage: [],
             listTitle: '',
             listId: this.$route.params.listId,
+            user: JSON.parse(localStorage.getItem('user')),
         }
     },
     mixins: [fbFunctions],
@@ -63,12 +65,12 @@ export default {
             else {
                 newEntry = {'text': this.newTask, 'checked': false};
                 this.storage.push(newEntry);
-                this.$_save(this.listId, this.storage);
+                this.$_save(this.user.id, this.listId, this.storage);
             }
             this.newTask = '';
         },
         listenToDbUpdates() {
-            firebase.listCollection.doc(this.listId).onSnapshot((doc) => {
+            firebase.database.collection(this.user.id).doc(this.listId).onSnapshot((doc) => {
                 console.log("onShapshot: ", doc.data());
                 this.storage = doc.data().todos;
                 this.listTitle = doc.data().name;
@@ -76,7 +78,7 @@ export default {
         },
         deleteSingleListItem(index) {
             this.storage.splice(index, 1);
-            this.$_save(this.listId, this.storage);
+            this.$_save(this.user.id, this.listId, this.storage);
         },
         deleteMultipleItems() {
             let checkedItems = this.storage.filter((item)=>{
@@ -88,11 +90,11 @@ export default {
                 });
             }
             else this.storage = [];
-            this.$_save(this.listId, this.storage);
+            this.$_save(this.user.id, this.listId, this.storage);
         },
         checkListItem(event, index) {
             this.storage[index].checked = event.target.checked;
-            this.$_save(this.listId, this.storage);
+            this.$_save(this.user.id, this.listId, this.storage);
         }
     },
     created: function() {

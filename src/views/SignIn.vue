@@ -41,11 +41,11 @@ export default {
     },
     methods: {
         login() {
-            console.log(this.email, this.pw);
             firebaseConfig.firebase.auth().signInWithEmailAndPassword(this.email, this.pw)
             .then(
                 user => {
                     this.$router.replace('/');
+                    localStorage.setItem('user', JSON.stringify({ id: user.user.uid, email: user.user.email, name: user.user.displayName }));
                 },
                 error => {
                     alert(error.message);
