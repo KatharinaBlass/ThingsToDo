@@ -16,7 +16,7 @@
 			:taskCount="list.size"
 			:solvedTaskCount="list.checkedCount"
 			:listId="list.id"
-			@deleteListCard="$_deleteList(user.id, list.id)"
+			@deleteListCard="deleteList(list.id)"
 		/>
 		</div>
 		<button
@@ -68,13 +68,16 @@ export default {
 		}
 	},
 	methods: {
+		deleteList(list){
+			this.$_deleteList(this.user.uid, list);
+		},
 		createNewList() {
-			this.$_create(this.user.id, this.newList);
+			this.$_create(this.user.uid, this.newList);
 			this.newList.title = '';
 			this.newList.kategory = '';
 		},
 		listenToDbUpdates() {
-			firebase.database.collection(this.user.id).onSnapshot((snapshot) => {
+			firebase.database.collection(this.user.uid).onSnapshot((snapshot) => {
 				if(snapshot) {
 					this.listDataCollection = snapshot.docs.map((doc)=>{
 						const docData = doc.data();

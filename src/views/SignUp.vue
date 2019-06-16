@@ -1,5 +1,5 @@
 <template>
-<userManagementDialog
+    <userManagementDialog
         dialogTitle="Create an Account"
         buttonTitle="Registrieren"
         v-on:formSubmitted="registrate"
@@ -33,8 +33,13 @@ export default {
             firebaseConfig.firebase.auth().createUserWithEmailAndPassword(this.email, this.pw)
             .then(
                 user => {
-                    this.$router.replace('/');
-                    localStorage.setItem('user', JSON.stringify({ id: user.user.uid, email: user.user.email, name: user.user.displayName }));
+                    var user = firebaseConfig.firebase.auth().currentUser;
+                    user.sendEmailVerification().then((user) => {
+                        this.$router.replace('/');
+                        localStorage.setItem('user', JSON.stringify(user.user));
+                    }).catch(function(error) {
+                        alert(error.message);
+                    });
                 },
                 error => {
                     alert(error.message);

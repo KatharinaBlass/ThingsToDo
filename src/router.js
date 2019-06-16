@@ -4,6 +4,7 @@ import Overview from './views/Overview.vue'
 import TodoList from './views/TodoList.vue'
 import SignIn from './views/SignIn.vue'
 import SignUp from './views/SignUp.vue'
+import Verification from './views/Verification.vue'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       name: 'SignUp',
       component: SignUp,
     },
+    {
+      path: '/wait-for-verification',
+      name: 'Verification',
+      component: Verification,
+    }
   ]
 });
 
