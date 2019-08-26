@@ -45,6 +45,8 @@ textarea {
 	font-size: 2.2em;
 	font-weight: lighter;
 	color: #fffffff0;
+	margin: 8px 0 0;
+	padding: 0;
 }
 .cardTitle {
 	font-size: 1.7rem;
@@ -52,4 +54,27 @@ textarea {
 }
 button {
 	font-family: 'Quicksand', 'Avenir', Helvetica, Arial, sans-serif;
+}
+.btn {
+	background: none;
+    border: none;
+    cursor: pointer;
+}
+.header{
+	padding: 16px 8px;
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+}
+.content {
+    width: 100%;
+	border-radius: 2px;
+	padding: 8px;
+
+    @media only screen and (min-width: 500px) {
+        width: 80%;
+        max-width: 1000px;
+        margin: 0 auto;
+        border-radius: 0;
+    }
 }

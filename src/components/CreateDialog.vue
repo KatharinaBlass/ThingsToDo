@@ -1,7 +1,7 @@
 <template>
     <div v-if="active">
         <div class="dialog">
-            <button id="closeDialog" @click="$emit('update:active')">
+            <button class="btn" id="closeDialog" @click="$emit('update:active')">
                 <img src="@/assets/close-light-gray.svg" class="icon"/>
             </button>
             <div class="contentWrapper">
@@ -21,7 +21,7 @@
                     :valid.sync="valid.kategory"
                 />
             </div>
-            <button class="submitBtn" type="button" @click="validateBeforeSubmit">Erstellen</button>
+            <button class="btn submitBtn" type="button" @click="validateBeforeSubmit">Erstellen</button>
         </div>
         <div class="overlay"></div>
     </div>
@@ -101,9 +101,6 @@ export default {
     min-width: 300px;
 
     #closeDialog {
-        background: none;
-        border: none;
-        cursor: pointer;
         position: absolute;
         right: 0;
         padding: 4px;
@@ -128,7 +125,6 @@ export default {
         width: 100%;
         margin: 0;
         padding: 8px;
-        border: 0;
         background: var(--primaryColor);
         color: white;
         border-bottom-right-radius: 2px;

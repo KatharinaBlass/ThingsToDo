@@ -5,7 +5,7 @@
             <span id="checkbox"></span>
             <span id="entryText">{{text}}</span>
         </label>
-        <button id="entryCloseBtn" @click="$emit('deleteListItem', $event)">
+        <button class="btn" id="entryCloseBtn" @click="$emit('deleteListItem', $event)">
             <img src="@/assets/close.svg" class="icon"/>
         </button>
     </li>
@@ -51,9 +51,6 @@ export default {
     #entryCloseBtn {
         display: none;
         padding: 0 .5em;
-        border: none;
-        background: none;
-        cursor: pointer;
 
         &:last-of-type {
             border-bottom-right-radius: 2px;

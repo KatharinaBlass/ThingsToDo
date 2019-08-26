@@ -1,7 +1,7 @@
 <template>
   <div class="card">
 		<span :class="{ progressbar: true, border_top_right_radius: taskCount === solvedTaskCount }" :style="{ width: ((solvedTaskCount / taskCount) * 170) +'px' }"></span>
-		<button id="deleteButton" @click="$emit('deleteListCard', $event)">
+		<button class="btn" id="deleteButton" @click="$emit('deleteListCard', $event)">
 			<img src="@/assets/delete.svg" class="icon"/>
 		</button>
 		<router-link
@@ -55,9 +55,6 @@ export default {
 
 	#deleteButton {
 		display: none;
-		border: none;
-		background: none;
-		cursor: pointer;
 		border-top-right-radius: 4px;
 		position: absolute;
     right: 0;

@@ -9,7 +9,7 @@
                 :key="index"
                 type="button"
                 :name="name"
-                :class="{ active: activeOption === key }"
+                :class="{ btn: true, active: activeOption === key }"
                 @click="()=>{ activeOption = key; $emit('update:valid', true)}"
             >
                 {{ value }}
@@ -77,10 +77,9 @@ export default {
     border-radius: 4px;
 
     button {
-        background: none;
-        border: none;
         width: 70px;
         padding: 4px 8px;
+        margin: 0 4px;
         border-radius: 4px;
         color: white;
         transition: 0.2s;

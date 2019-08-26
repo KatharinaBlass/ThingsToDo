@@ -1,30 +1,40 @@
 <template>
-	<div class="wrapper">
-		<button type="button" @click="logout">Logout</button>
-		<h2 class="title">Things to do</h2>
-		<TabSelect
-			:options="tabs"
-			v-model="activeTab"
-			name="tab"
-			:valid="true"
-		/>
-		<div id="dashboard">
-		<ListCard
-			v-for="(list, index) in filteredListDataCollection"
-			:key="index"
-			:title="list.title"
-			:taskCount="list.size"
-			:solvedTaskCount="list.checkedCount"
-			:listId="list.id"
-			@deleteListCard="deleteList(list.id)"
-		/>
+	<div>
+		<div class="header">
+			<button class="btn hidden">
+				<img src="@/assets/power.svg" class="icon"/>
+			</button>
+			<h2 class="title">Things to do</h2>
+			<button class="btn" type="button" @click="logout">
+				<img src="@/assets/power.svg" class="icon"/>
+			</button>
 		</div>
-		<button
-			type="button"
-			id="toggleDialogButton"
-			@click="dialogActive=!dialogActive">
-			+
-		</button>
+		<div class="content">
+			<TabSelect
+				:options="tabs"
+				v-model="activeTab"
+				name="tab"
+				:valid="true"
+			/>
+			<div id="dashboard">
+			<ListCard
+				v-for="(list, index) in filteredListDataCollection"
+				:key="index"
+				:title="list.title"
+				:taskCount="list.size"
+				:solvedTaskCount="list.checkedCount"
+				:listId="list.id"
+				@deleteListCard="deleteList(list.id)"
+			/>
+			</div>
+			<button
+				type="button"
+				id="toggleDialogButton"
+				class="btn"
+				@click="dialogActive=!dialogActive">
+				+
+			</button>
+		</div>
 		<CreateDialog
 			:active.sync="dialogActive"
 			v-model="newList"
@@ -136,13 +146,15 @@ export default {
     margin: 8px;
     padding: 8px;
     background: white;
-    border: none;
     border-radius: 4px;
     box-shadow: var(--defaultBoxShadow);
 	width: 170px;
-	cursor: pointer;
 	font-size: 1.2rem;
     font-weight: lighter;
     color: var(--TextColor);
+}
+
+.hidden {
+	visibility: hidden;
 }
 </style>

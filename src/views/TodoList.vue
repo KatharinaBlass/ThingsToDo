@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="header">
+        <div class="header">
             <router-link
                 id="menuLink"
                 :to="{ name: 'home'}">
@@ -8,7 +8,7 @@
             </router-link>
             <span class="title">{{this.listTitle}}</span>
             <button
-                id="deleteAll"
+                class="btn"
                 @click="deleteMultipleItems">
                 <img src="@/assets/clear_all.svg" class="icon"/>
             </button>
@@ -104,26 +104,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.content {
-    width: 100%;
-    border-radius: 2px;
-
-    @media only screen and (min-width: 500px) {
-        width: 70%;
-        max-width: 700px;
-        margin: 1em auto;
-        border-radius: 0;
-    }
-}
-
-#header{
-	padding: 16px 8px;
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
-	display: flex;
-	justify-content: space-between;
-    align-items: center;
-}
 
 #toDo_list {
 	list-style-type: none;
@@ -136,12 +116,6 @@ export default {
 .menuLink {
 	align-items: center;
 	display: flex;
-}
-
-#deleteAll {
-	background: none;
-	border: none;
-	cursor: pointer;
 }
 
 .icon {
